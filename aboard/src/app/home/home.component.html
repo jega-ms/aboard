@@ -1,0 +1,37 @@
+<md-sidenav-container>
+
+  <!-- Side bar -->
+  <md-sidenav #sidenav mode="side" [opened]="isOpen" color="primary" class="example-sidenav">
+    <md-toolbar color="primary">{{title}}</md-toolbar>
+    <md-list *ngFor="let menu of sideMenus">
+      <md-list-item>
+        <md-icon class="md-24">{{menu.icon}}</md-icon>
+        <button md-button [routerLinkActive]="['router-link-active']" routerLink="{{menu.link}}">{{menu.name}}</button>
+      </md-list-item>
+      <md-divider *ngIf="menu.divider==true"></md-divider>
+    </md-list>
+  </md-sidenav>
+
+  <!-- Toolbar-->
+  <md-toolbar color="primary">
+    <button md-icon-button (click)="sidenav.toggle()">
+        <md-icon class="md-18" >menu</md-icon>
+    </button>
+  </md-toolbar>
+
+  <!-- Dashboard View -->
+  <div fxLayout="column" fxLayoutAlign=" stretch"class="router-container mat-elevation-z6">
+
+    <div fxFlex="95" >
+      <router-outlet></router-outlet>
+    </div>
+
+    <footer class="mat-elevation-z4" fxFlexFill fxFlex="5" fxLayoutAlign="center end">
+        <span>&copy; 2017 Example Corporation</span>
+    </footer>
+  </div>
+
+
+
+
+</md-sidenav-container>
