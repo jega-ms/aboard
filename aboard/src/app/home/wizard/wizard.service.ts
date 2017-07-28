@@ -10,5 +10,16 @@ export class EmployeeService {
     }
 
 
+    // getVideos() : Employee[] {
+    //     return this.http.get('.${this.apiUrl}/videos')
+    //         .map(res => res.json().data);
+    // }
 
+}
+
+
+export class Employee {
+    id: string;
+    name: string;
+    designation: string;
 }
