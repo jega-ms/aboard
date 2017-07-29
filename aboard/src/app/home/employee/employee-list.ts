@@ -1,7 +1,7 @@
 import { Employee } from "./employee";
 
 export class EmployeeList {
-    public items: Employee[];
+    public items: Employee[]=[];
     public count: number;
 
 

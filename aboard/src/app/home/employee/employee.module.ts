@@ -7,6 +7,7 @@ import { MdTableModule } from '@angular/material';
 import { MdPaginatorModule } from '@angular/material';
 import { MdButtonModule } from '@angular/material';
 import { MdIconModule } from '@angular/material';
+import { MdToolbarModule } from '@angular/material';
 import { CommonModule } from '@angular/common';
 // This Module's Components
 import { EmployeeComponent } from './employee.component';
@@ -23,7 +24,8 @@ import { EmployeeService } from './employee-service.service';
         CdkTableModule,
         MdPaginatorModule,
         MdButtonModule,
-        MdIconModule
+        MdIconModule,
+        MdToolbarModule
     ],
     declarations: [
         EmployeeComponent,

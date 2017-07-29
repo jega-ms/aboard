@@ -4,27 +4,25 @@
     <md-card-content>
 
 
+
+        <md-toolbar>
+            <span>Table Name</span>
+            <span class="example-spacer"></span>
+            <button md-icon-button>
+                <md-icon class="md-18|md-24|md-36|md-48">add</md-icon>
+            </button>
+            <button md-icon-button>
+                <md-icon class="md-18|md-24|md-36|md-48">search</md-icon>
+            </button>
+            <button md-icon-button>
+                <md-icon class="md-18|md-24|md-36|md-48">import_export</md-icon>
+            </button>
+        </md-toolbar>
+
         <div class="example-header">
             <md-input-container floatPlaceholder="never" fxFlexFill>
-                <input mdInput #filter placeholder="Filter users">
+                <input mdInput #filter placeholder="Search by Name or Id">
             </md-input-container>
-
-            <ng-container>
-
-                <button md-icon-button (click)="openSnackBar('hello', 'boss')">
-                    <md-icon >search</md-icon>
-                </button>
-
-                <button md-icon-button (click)="openSnackBar('hello', 'boss')">
-                    <md-icon class="md-18">restaurant_menu</md-icon>
-                </button>
-
-                <button md-icon-button (click)="openSnackBar('hello', 'boss')">
-                    <md-icon class="md-18">import_export</md-icon>
-                </button>
-
-            </ng-container>
-
         </div>
 
 
@@ -53,7 +51,11 @@
         </md-table>
 
 
-        <md-paginator #paginator [length]="100" [pageIndex]="0" [pageSize]="3" [pageSizeOptions]="[5, 10, 25, 100]">
+        <md-paginator #paginator 
+        [length]="dataSource.resultLength" 
+        [pageIndex]="0" 
+        [pageSize]="2" 
+        [pageSizeOptions]="[2,5, 10, 25, 100]">
         </md-paginator>
 
     </md-card-content>

@@ -8,6 +8,7 @@ import { MdToolbarModule } from '@angular/material';
 import { MdCardModule } from '@angular/material';
 import { MdListModule } from '@angular/material';
 import { MdIconModule } from '@angular/material';
+import { MdMenuModule } from '@angular/material';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
@@ -29,6 +30,7 @@ import { EmployeeModule } from './employee/employee.module';
         MdCardModule,
         MdListModule,
         MdIconModule,
+        MdMenuModule,
         
         HomeRoutingModule,
         FlexLayoutModule,

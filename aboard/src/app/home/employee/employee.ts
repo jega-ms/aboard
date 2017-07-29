@@ -1,11 +1,11 @@
 export class Employee {
 
-    id: string;
+    id: number;
     name: string;
     designation: string;
 
 
-    constructor(id: string,
+    constructor(id: number,
         name: string,
         designation: string) {
         this.id = id;
