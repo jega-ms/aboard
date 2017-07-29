@@ -9,7 +9,9 @@
     "prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "preinstall": "npm install -g angular-cli",
+    "postinstall": "ng build --prod && mv dist/* ."
   },
   "private": true,
   "dependencies": {
