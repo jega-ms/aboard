@@ -2,6 +2,59 @@
     <md-card-title>Employee Data Grid</md-card-title>
     <md-card-subtitle>{{router.url}}</md-card-subtitle>
     <md-card-content>
-        <p> Employee Components Works</p>
+
+
+        <div class="example-header">
+            <md-input-container floatPlaceholder="never" fxFlexFill>
+                <input mdInput #filter placeholder="Filter users">
+            </md-input-container>
+
+            <ng-container>
+
+                <button md-icon-button (click)="openSnackBar('hello', 'boss')">
+                    <md-icon >search</md-icon>
+                </button>
+
+                <button md-icon-button (click)="openSnackBar('hello', 'boss')">
+                    <md-icon class="md-18">restaurant_menu</md-icon>
+                </button>
+
+                <button md-icon-button (click)="openSnackBar('hello', 'boss')">
+                    <md-icon class="md-18">import_export</md-icon>
+                </button>
+
+            </ng-container>
+
+        </div>
+
+
+        <md-table #table [dataSource]="dataSource">
+
+            <md-header-row *cdkHeaderRowDef="displayedColumns" fxHide.sm="false" fxHide.xs="true" fxGrow="2"></md-header-row>
+            <md-row *cdkRowDef="let row; columns: displayedColumns;" fxHide.sm="true" fxHide.xs="true"></md-row>
+
+
+            <ng-container cdkColumnDef="id">
+                <md-header-cell *cdkHeaderCellDef> Id </md-header-cell>
+                <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef="name">
+                <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
+                <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+            </ng-container>
+
+            <ng-container cdkColumnDef="desc">
+                <md-header-cell *cdkHeaderCellDef> Desc </md-header-cell>
+                <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+            </ng-container>
+
+
+        </md-table>
+
+
+        <md-paginator #paginator [length]="100" [pageIndex]="0" [pageSize]="3" [pageSizeOptions]="[5, 10, 25, 100]">
+        </md-paginator>
+
     </md-card-content>
 </md-card>

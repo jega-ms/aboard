@@ -11,6 +11,10 @@ import 'hammerjs';
 import { AppRoutingModule } from './app-routing.module';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
+import { MockBackend } from "@angular/http/testing";
+import { MockBackendProvider } from "./mock-backend/mockbackend-provider";
+import { BaseRequestOptions, XHRBackend, HttpModule } from "@angular/http";
+
 @NgModule({
   declarations: [
     AppComponent
@@ -20,11 +24,15 @@ import { LocationStrategy, HashLocationStrategy } from '@angular/common';
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    HttpModule
   ],
   providers: [
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
-
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    MockBackend,
+    MockBackendProvider,
+    MockBackend,
+    BaseRequestOptions,
   ],
   bootstrap: [AppComponent]
 })

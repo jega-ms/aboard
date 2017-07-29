@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MdCardModule } from '@angular/material';
-import { MdInputModule } from '@angular/material';
+import { MdInputModule, MdButtonModule } from '@angular/material';
 
 // This Module's Components
 import { LoginComponent } from './login.component';
@@ -18,7 +18,8 @@ import { LoginRoutingModule } from './login-routing.module';
         FormsModule,
         MdCardModule,
         FlexLayoutModule,
-        MdInputModule
+        MdInputModule,
+        MdButtonModule,
     ],
     declarations: [
         LoginComponent

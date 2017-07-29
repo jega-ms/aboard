@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { WizardComponent } from './wizard/wizard.component';
 import { EmployeeModule } from './employee/employee.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 const routes: Routes = [
     {

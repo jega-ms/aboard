@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WizardComponent } from './wizard.component';
-import { WizardModule } from './wizard.module';
 
 
 

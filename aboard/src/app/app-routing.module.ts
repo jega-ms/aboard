@@ -21,7 +21,7 @@ const routes: Routes = [
         HomeModule
     ],
     exports: [RouterModule],
-    providers: []
+    providers: [HomeModule,LoginModule]
 
 })
 export class AppRoutingModule { }

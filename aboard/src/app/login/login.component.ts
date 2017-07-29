@@ -11,8 +11,12 @@ import { Router } from '@angular/router';
 export class LoginComponent {
 
 
-    constructor(public router:Router){
+    constructor(public router: Router) {
 
     }
 
+    public signin() {
+        console.log("Loing ....")
+        this.router.navigate(["home"]);
+    }
 }

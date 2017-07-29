@@ -12,12 +12,19 @@ import { Subscription } from "rxjs/Subscription";
     templateUrl: 'home.component.html',
     styleUrls: ['home.component.scss']
 })
-export class HomeComponent implements OnDestroy {
+export class HomeComponent implements OnDestroy, OnInit {
+
+    ngOnInit(): void {
+        console.log("ROUT >>......." + this.router.url)
+        if (this.router.url === '/') {
+            this.router.navigate(['dashboard']);
+        }
+    }
 
 
     isOpen = true;
     public subscription: Subscription;
-    constructor(media: ObservableMedia) {
+    constructor(public router: Router, media: ObservableMedia) {
         this.subscription = media.subscribe((change: MediaChange) => {
             console.log("Changes ,..... " + change.mqAlias);
             this.isOpen = (change.mqAlias !== 'xs') && ((change.mqAlias !== 'sm'));
