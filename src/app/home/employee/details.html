@@ -1,0 +1,39 @@
+<form fxLayout="column" fxLayoutAlign="center center">
+    <p>
+
+        <md-input-container>
+            <input mdInput placeholder="First Name" required>
+        </md-input-container>
+        <md-input-container>
+            <input mdInput placeholder="Last Name" required>
+        </md-input-container>
+    </p>
+    <p>
+        <md-input-container>
+            <textarea mdInput placeholder="Address" required></textarea>
+        </md-input-container>
+        <md-input-container>
+            <textarea mdInput placeholder="Address 2"></textarea>
+        </md-input-container>
+    </p>
+    <p>
+        <md-input-container>
+            <input mdInput #postalCode maxlength="5" placeholder="Postal Code" value="" required>
+            <md-hint align="end">{{postalCode.value.length}} / 5</md-hint>
+        </md-input-container>
+    </p>
+
+    <p>
+        <md-input-container>
+            <input mdInput placeholder="City">
+        </md-input-container>
+        <md-input-container>
+            <input mdInput placeholder="State">
+        </md-input-container>
+    </p>
+    <p>
+        <button md-raised-button (click)="addEmployee">Add</button>
+        <button md-raised-button (click)="addEmployee">Add Next</button>
+    </p>
+</form>
+</div>

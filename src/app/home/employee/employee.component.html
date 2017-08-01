@@ -6,14 +6,14 @@
         <md-toolbar>
             <span>Table Name</span>
             <span class="example-spacer"></span>
-            <button md-icon-button>
-                <md-icon class="md-18|md-24|md-36|md-48">add</md-icon>
+            <button md-icon-button (click)="value=1">
+                <md-icon >add</md-icon>
             </button>
-            <button md-icon-button>
-                <md-icon class="md-18|md-24|md-36|md-48">search</md-icon>
+            <button md-icon-button (click)="value=2">
+                <md-icon>search</md-icon>
             </button>
-            <button md-icon-button>
-                <md-icon class="md-18|md-24|md-36|md-48">import_export</md-icon>
+            <button md-icon-button (click)="value=3">
+                <md-icon>import_export</md-icon>
             </button>
         </md-toolbar>
 
@@ -22,15 +22,11 @@
                 <input mdInput #filter placeholder="Search by Name or Id">
             </md-input-container>
         </div>
-
-
-        <md-table #table [dataSource]="dataSource">
-
+        <md-table #table [dataSource]="dataSource" mdSort>
             <md-header-row *cdkHeaderRowDef="displayedColumns" fxHide.sm="false" fxHide.xs="true" fxGrow="2"></md-header-row>
             <md-row *cdkRowDef="let row; columns: displayedColumns;" fxHide.sm="true" fxHide.xs="true"></md-row>
 
-
-            <ng-container cdkColumnDef="id">
+            <ng-container cdkColumnDef="id" md-sort-header>
                 <md-header-cell *cdkHeaderCellDef> Id </md-header-cell>
                 <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
             </ng-container>
@@ -45,15 +41,8 @@
                 <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
             </ng-container>
 
-
         </md-table>
-
-
-        <md-paginator #paginator 
-        [length]="dataSource.resultLength" 
-        [pageIndex]="0" 
-        [pageSize]="2" 
-        [pageSizeOptions]="[2,5, 10, 25, 100]">
+        <md-paginator #paginator [length]="dataSource.resultLength" [pageIndex]="0" [pageSize]="2" [pageSizeOptions]="[2,5, 10, 25, 100]">
         </md-paginator>
 
     </md-card-content>

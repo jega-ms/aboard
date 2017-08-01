@@ -1,11 +1,13 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnChanges, SimpleChanges, Directive, ViewContainerRef } from '@angular/core';
 import { Router } from "@angular/router";
+import { MdSort } from '@angular/material';
 import { EmployeeService } from "./employee-service.service";
 import { EmployeeList } from "./employee-list";
 import { Observable } from "rxjs/Observable";
 import { DataSource, CollectionViewer } from '@angular/cdk';
 import { Employee } from "./employee";
 import { MdPaginator, MdSnackBar } from "@angular/material";
+import { MdDialog, MdDialogRef } from '@angular/material';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
@@ -27,27 +29,39 @@ import { BehaviorSubject } from "rxjs/BehaviorSubject";
     styleUrls: ['employee.component.scss'],
     providers: [EmployeeService]
 })
-export class EmployeeComponent implements OnInit {
+export class EmployeeComponent implements OnInit, AfterViewInit {
+
     displayedColumns = ['id', 'name', 'desc'];
-    dataSource: ExampleDataSource | null;
+    dataSource: EmployeeDataSource | null;
 
-    @ViewChild(MdPaginator) paginator: MdPaginator;
+    @ViewChild('paginator') paginator: MdPaginator | null;
+    @ViewChild('filter') filter: ElementRef | null;
+    @ViewChild(MdSort) sort: MdSort | null;
 
-    @ViewChild('filter') filter: ElementRef;
+    ngAfterViewInit(): void {
+        console.log("Employee:ngAfterViewInit()" + JSON.stringify(this.sort));
+
+        console.log("Employee:ngAfterViewInit() done");
+    }
+
+
+
+
 
     /**
      * 
      * @param router 
      * @param service 
      */
-    constructor(public router: Router, public snackBar: MdSnackBar, public service: EmployeeService) {
+    constructor(public dialog: MdDialog, public router: Router, public snackBar: MdSnackBar, public service: EmployeeService) {
     }
+
     /**
      * 
      */
     ngOnInit(): void {
-        this.dataSource = new ExampleDataSource(this.service, this.paginator);
-        console.log("Serice Fetch ......");
+        console.log("Employee:ngOnInit()");
+        this.dataSource = new EmployeeDataSource(this.service, this.paginator, this.sort);
         Observable.fromEvent(this.filter.nativeElement, 'keyup')
             .debounceTime(150)
             .distinctUntilChanged()
@@ -55,7 +69,10 @@ export class EmployeeComponent implements OnInit {
                 if (!this.dataSource) { return; }
                 this.dataSource.filter = this.filter.nativeElement.value;
             });
+        console.log("Serice Fetch ......");
     }
+
+
 
 
     openSnackBar(message: string, action: string) {
@@ -66,7 +83,12 @@ export class EmployeeComponent implements OnInit {
     }
 }
 
-export class ExampleDataSource extends DataSource<Employee> {
+// @Component({
+//     selector: 'add-emp-details',
+
+
+
+export class EmployeeDataSource extends DataSource<Employee> {
 
     resultLength: number = 0;
     isLoadingResults: boolean;
@@ -75,7 +97,7 @@ export class ExampleDataSource extends DataSource<Employee> {
     get filter(): string { return this._filterChange.value; }
     set filter(filter: string) { this._filterChange.next(filter); }
 
-    constructor(public _service: EmployeeService, private _paginator: MdPaginator) {
+    constructor(public _service: EmployeeService, private _paginator: MdPaginator, private _sort: MdSort) {
         super();
     }
 
@@ -84,13 +106,19 @@ export class ExampleDataSource extends DataSource<Employee> {
         const displayDataChanges = [
             this._paginator.page,
             this._filterChange,
+            // this._sort.mdSortChange,
         ];
 
         return Observable.merge(...displayDataChanges).startWith(null)
             .switchMap(() => {
                 this.isLoadingResults = true;
-                const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
-                return this._service.findAll(startIndex, this._paginator.pageSize);
+                if (this._paginator != null) {
+                    const startIndex = this._paginator.pageIndex * this._paginator.pageSize;
+                    return this._service.findAll(startIndex, this._paginator.pageSize);
+                }
+                return this._service.findAll(0, 100);
+
+
             })
             .catch(excption => {
                 this.isRateLimitReached = true;
@@ -99,11 +127,32 @@ export class ExampleDataSource extends DataSource<Employee> {
             .map(result => {
                 // Flip flag to show that loading has finished.
                 this.resultLength = result.count;
-                return result.items.slice().filter((item: Employee) => {
+                let data = result.items.slice().filter((item: Employee) => {
                     let searchStr = (item.name).toLowerCase();
                     return searchStr.indexOf(this.filter.toLowerCase()) != -1;
-                });;
+                });
+                // if (!this._sort.active || this._sort.direction == '') {
+                    return data;
+                // } else {
+                //     return data.sort((a, b) => {
+                //         let propertyA: number | string = '';
+                //         let propertyB: number | string = '';
+
+                //         switch (this._sort.active) {
+                //             case 'id': [propertyA, propertyB] = [a.id, b.id]; break;
+                //             case 'name': [propertyA, propertyB] = [a.name, b.name]; break;
+                //             case 'desc': [propertyA, propertyB] = [a.progress, b.progress]; break;
+                //         }
+
+                //         let valueA = isNaN(+propertyA) ? propertyA : +propertyA;
+                //         let valueB = isNaN(+propertyB) ? propertyB : +propertyB;
+
+                //         return (valueA < valueB ? -1 : 1) * (this._sort.direction == 'asc' ? 1 : -1);
+                //     });
+                // }
             });
+
+
     }
     disconnect(collectionViewer: CollectionViewer): void {
     }

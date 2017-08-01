@@ -1,0 +1,27 @@
+<div class="example-header">
+    <md-input-container floatPlaceholder="never" fxFlexFill>
+        <input mdInput #filter placeholder="Search by Name or Id">
+    </md-input-container>
+</div>
+<md-table #table [dataSource]="dataSource">
+    <md-header-row *cdkHeaderRowDef="displayedColumns" fxHide.sm="false" fxHide.xs="true" fxGrow="2"></md-header-row>
+    <md-row *cdkRowDef="let row; columns: displayedColumns;" fxHide.sm="true" fxHide.xs="true"></md-row>
+
+    <ng-container cdkColumnDef="id">
+        <md-header-cell *cdkHeaderCellDef> Id </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.id}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="name">
+        <md-header-cell *cdkHeaderCellDef> Name </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+    </ng-container>
+
+    <ng-container cdkColumnDef="desc">
+        <md-header-cell *cdkHeaderCellDef> Desc </md-header-cell>
+        <md-cell *cdkCellDef="let row"> {{row.name}} </md-cell>
+    </ng-container>
+
+</md-table>
+<md-paginator #paginator [length]="dataSource.resultLength" [pageIndex]="0" [pageSize]="2" [pageSizeOptions]="[2,5, 10, 25, 100]">
+</md-paginator>
